@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { Container, IconButton, TextField } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import LoginForm from "./LoginForm";
 
 const style = {
   position: "absolute",
@@ -19,15 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ open, onClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
+export default function LoginModal({ open, onClose }) {
   return (
     <div>
       <Modal
@@ -35,7 +27,9 @@ export default function BasicModal({ open, onClose }) {
         onClose={onClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      ></Modal>
+      >
+        <LoginForm onClose={onClose} />
+      </Modal>
     </div>
   );
 }
