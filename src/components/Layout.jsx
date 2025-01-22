@@ -3,8 +3,7 @@ import {
   CssBaseline,
   Container,
   AppBar,
-  Toolbar,
-  Typography,
+  Box,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import Header from "./Header/Header";
@@ -14,10 +13,10 @@ const Layout = ({ children }) => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#1976d2", // Blue
+        main: "#1976d2",
       },
       secondary: {
-        main: "#ff4081", // Pink
+        main: "#ff4081",
       },
       mode: "dark",
     },
@@ -28,12 +27,12 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* This ensures that global CSS resets are applied */}
-      <AppBar position="sticky">
-        <Toolbar>
+      <CssBaseline />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
           <Header />
-        </Toolbar>
-      </AppBar>
+        </AppBar>
+      </Box>
       {/* Main content area */}
       <Container maxWidth="lg" sx={{ marginTop: 4 }}>
         {children}
