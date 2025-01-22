@@ -1,4 +1,6 @@
 import { Button, styled } from "@mui/material";
+import BasicModal from "../Login/LoginModal";
+import React from "react";
 
 const WrapperButton = styled(Button)`
   background: white;
@@ -14,10 +16,23 @@ const WrapperButton = styled(Button)`
 `;
 
 const HeaderButton = ({ search, login }) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <div>
       <WrapperButton>{search}</WrapperButton>
-      <WrapperButton color="inherit"> {login}</WrapperButton>
+      <WrapperButton onClick={handleOpen} color="inherit">
+        {" "}
+        {login}
+      </WrapperButton>
+      <BasicModal
+        open={open}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      />
     </div>
   );
 };
