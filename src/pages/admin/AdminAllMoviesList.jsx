@@ -1,7 +1,7 @@
-import React from "react";
+import Movies from "../../components/Movies/Movies";
 
 const AdminAllMoviesList = () => {
-  return <div>AdminAllMoviesList</div>;
+  return <Movies />;
 };
 
 export default AdminAllMoviesList;
