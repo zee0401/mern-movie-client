@@ -2,20 +2,27 @@ import React from "react";
 import { InputBase, Box, styled } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
+
 const StyledBox = styled(Box)`
   background: #0c0101;
   margin-left: 10px;
   display: flex;
   margin-bottom: 2%;
-  border: 1px solid #f3f2f2;
+  border: 1px solid #4c4c4c;
+  border-radius: 4px;
 `;
+
 const SearchInput = styled(Box)`
-  border-radius: 10px solid #f3f2f2;
   color: gray;
   justify-content: center;
   padding-right: 5px;
   padding-top: 4px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
+
 const SearchBox = ({ setSearchInput }) => {
   return (
     <StyledBox>
