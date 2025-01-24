@@ -5,9 +5,11 @@ import {
   IconButton,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import { useLogin } from "../../hooks/useLogin";
 
 const style = {
   position: "absolute",
@@ -25,10 +27,12 @@ const LoginForm = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { mutate, isLoading, isError, error } = useLogin({ onClose });
+
   const handleLogin = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
+    mutate({ email, password });
   };
+
   return (
     <Box sx={style}>
       <IconButton
@@ -43,20 +47,10 @@ const LoginForm = ({ onClose }) => {
         <CloseIcon />
       </IconButton>
       <Container maxWidth="sm">
-        {/* <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        mt: 8,
-        p: 3,
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-      }}
-    > */}
         <Typography variant="h4" gutterBottom>
           Login
         </Typography>
+
         <TextField
           label="Email"
           type="email"
@@ -65,6 +59,7 @@ const LoginForm = ({ onClose }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <TextField
           label="Password"
           type="password"
@@ -73,16 +68,25 @@ const LoginForm = ({ onClose }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <Button
           variant="contained"
           color="secondary"
           fullWidth
           sx={{ mt: 2 }}
           onClick={handleLogin}
+          disabled={isLoading}
         >
-          Login
+          {isLoading ? <CircularProgress size={24} color="inherit" /> : "Login"}
         </Button>
-        {/* </Box> */}
+
+        {isError && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error?.response?.data ||
+              error?.message ||
+              "Login failed. Please try again."}
+          </Typography>
+        )}
       </Container>
     </Box>
   );
