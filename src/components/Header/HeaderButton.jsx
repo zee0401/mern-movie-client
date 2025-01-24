@@ -15,7 +15,7 @@ const WrapperButton = styled(Button)`
   }
 `;
 
-const HeaderButton = ({ search, login }) => {
+const HeaderButton = ({ search, adminLogin }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -24,7 +24,7 @@ const HeaderButton = ({ search, login }) => {
       <WrapperButton>{search}</WrapperButton>
       <WrapperButton onClick={handleOpen} color="inherit">
         {" "}
-        {login}
+        {adminLogin}
       </WrapperButton>
       <BasicModal
         open={open}
