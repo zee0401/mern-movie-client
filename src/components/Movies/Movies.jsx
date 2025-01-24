@@ -1,65 +1,50 @@
-import React from "react";
-import {
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import React, { useState } from "react";
+import Grid2 from "@mui/material/Grid2";
+import MovieCard from "./MovieCard";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { Box } from "@mui/material";
+
+const movieData = {
+  title: "Batman Begins",
+  year: "2005",
+  img: "https://www.omdbapi.com/src/poster.jpg",
+};
+
+const movies = Array(40).fill(movieData);
 
 const Movies = () => {
-  const theme = useTheme();
-  // Use media query to dynamically adjust columns based on screen size
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [page, setPage] = useState(1);
+  const moviesPerPage = 12;
 
-  // Determine number of columns based on screen size
-  const cols = isSmallScreen ? 2 : isMediumScreen ? 3 : 5;
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const startIndex = (page - 1) * moviesPerPage;
+  const currentMovies = movies.slice(startIndex, startIndex + moviesPerPage);
 
   return (
-    <ImageList cols={cols} gap={12} rowHeight={300} sx={{ overflow: "hidden" }}>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-      <ImageListItem>
-        <img src="https://www.omdbapi.com/src/poster.jpg" alt="img" />
-        <ImageListItemBar title="Batman Begins" subtitle={<span>2005</span>} />
-      </ImageListItem>
-    </ImageList>
+    <>
+      <Stack spacing={2}>
+        <Grid2 container sx={{ justifyContent: "center" }} spacing={2}>
+          {currentMovies.map((movie, index) => (
+            <Grid2 xs={12} sm={4} md={3} lg={2} key={index}>
+              <MovieCard movie={movie} />
+            </Grid2>
+          ))}
+        </Grid2>
+        <Box display="flex" justifyContent="center">
+          <Pagination
+            count={Math.ceil(movies.length / moviesPerPage)}
+            page={page}
+            onChange={handlePageChange}
+            boundaryCount={2}
+            color="secondary"
+          />
+        </Box>
+      </Stack>
+    </>
   );
 };
 
