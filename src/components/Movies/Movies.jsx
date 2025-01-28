@@ -1,32 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Grid2 from "@mui/material/Grid2";
 import MovieCard from "./MovieCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, duration } from "@mui/material";
-
-const movieData = {
-  title: "Batman Begins",
-  year: "2005",
-  img: "https://www.omdbapi.com/src/poster.jpg",
-  rating: "2.5",
-  description:
-    "Batman begins his war on crime with the help of a young crime-fighter named Thomas Wayne/Batman. The war between good and evil will continue as Batman and his allies fight to restore justice and protect Gotham City.",
-  duration: "120",
-};
-
-const movies = Array(40).fill(movieData);
+import { useQuery } from "@tanstack/react-query";
+import { getAllMovies } from "../../api/moviesApi";
 
 const Movies = () => {
   const [page, setPage] = useState(1);
-  const moviesPerPage = 12;
+  const moviesPerPage = 15;
+
+  const {
+    data: movies = [],
+    isLoading,
+    error,
+  } = useQuery({ queryKey: ["movies"], queryFn: getAllMovies });
 
   const handlePageChange = (event, value) => {
     setPage(value);
   };
 
+  console.log("movies", movies);
+
   const startIndex = (page - 1) * moviesPerPage;
   const currentMovies = movies.slice(startIndex, startIndex + moviesPerPage);
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>

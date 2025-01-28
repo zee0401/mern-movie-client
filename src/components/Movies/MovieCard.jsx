@@ -16,14 +16,19 @@ const MovieCard = ({ movie }) => {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt={movie.title}
+          alt={movie.name}
           height="300"
-          image={movie.img}
-          title={movie.title}
+          image={movie.image}
+          title={movie.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
-            {movie.title}
+          <Typography
+            gutterBottom
+            sx={{ fontSize: "13px" }}
+            component="div"
+            nowarap
+          >
+            {movie.name}
           </Typography>
           <Typography
             sx={{
