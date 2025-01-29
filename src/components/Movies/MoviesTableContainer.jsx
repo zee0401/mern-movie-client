@@ -33,7 +33,7 @@ const MoviesTableContainer = ({ movies }) => {
           {movies.map((movie, index) => (
             <TableRow key={movie._id || movie.id}>
               {" "}
-              <TableCell sx={{ padding: "5px", width: "10px" }}>
+              <TableCell sx={{ padding: "5px", maxWidth: "80px" }}>
                 <img
                   src={movie.image}
                   alt={movie.name}
