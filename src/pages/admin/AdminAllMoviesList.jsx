@@ -1,7 +1,6 @@
-import Movies from "../../components/Movies/Movies";
-
+import AdminMoviesTable from "../../components/Movies/AdminMoviesTable";
 const AdminAllMoviesList = () => {
-  return <Movies />;
+  return <AdminMoviesTable />;
 };
 
 export default AdminAllMoviesList;

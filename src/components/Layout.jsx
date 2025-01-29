@@ -18,6 +18,12 @@ const Layout = ({ children }) => {
       secondary: {
         main: "#ff4081",
       },
+      edit: {
+        main: "#ffe417",
+      },
+      delete: {
+        main: "#ff0000",
+      },
       mode: "dark",
     },
     typography: {
