@@ -6,17 +6,16 @@ import MoviesTableContainer from "./MoviesTableContainer";
 const MovieTable = () => {
   const {
     data: movies = [],
-    isLoading,
     error,
+    isFetching,
   } = useQuery({
     queryKey: ["movies"],
     queryFn: getAllMovies,
   });
 
-  if (isLoading) {
+  if (isFetching) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }

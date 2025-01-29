@@ -2,6 +2,8 @@ import { Button, styled } from "@mui/material";
 import BasicModal from "../Login/LoginModal"; // Assuming this is your login modal
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router";
+import { useLocation } from "react-router-dom";
 
 const WrapperButton = styled(Button)`
   background: white;
@@ -21,15 +23,40 @@ const HeaderButton = ({ search, adminLogin }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const location = useLocation();
+
+  const isAdminLocation = location.pathname.includes("/admin");
+
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <div>
-      <WrapperButton>{search}</WrapperButton>
+      {/* <WrapperButton>{search}</WrapperButton> */}
 
-      <WrapperButton onClick={handleOpen} color="inherit">
-        {isAuthenticated ? "View Dashboard" : "Admin Login"}
-      </WrapperButton>
+      {isAuthenticated && isAdminLocation && (
+        <WrapperButton>Add Movie</WrapperButton>
+      )}
+      {isAuthenticated && !isAdminLocation && (
+        <WrapperButton>
+          <Link
+            to="/admin/all-movies"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            View Dashboard
+          </Link>
+        </WrapperButton>
+      )}
+      {!isAuthenticated && (
+        <WrapperButton onClick={handleOpen} color="inherit">
+          Admin Login
+        </WrapperButton>
+      )}
+
+      {isAuthenticated && (
+        <WrapperButton onClick={handleOpen} color="inherit">
+          Logout
+        </WrapperButton>
+      )}
 
       {!isAuthenticated && (
         <BasicModal
