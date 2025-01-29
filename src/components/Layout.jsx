@@ -9,7 +9,6 @@ import { createTheme } from "@mui/material/styles";
 import Header from "./Header/Header";
 
 const Layout = ({ children }) => {
-  // Define a custom theme
   const theme = createTheme({
     palette: {
       primary: {
