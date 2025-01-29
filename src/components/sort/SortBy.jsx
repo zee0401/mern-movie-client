@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const SortByDropdown = ({ onSortChange }) => {
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("rating");
 
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
-    onSortChange(event.target.value); // Notify parent component about the selected sort option
+    onSortChange(event.target.value);
   };
 
   return (
-    <Box sx={{ minWidth: 200, marginBottom: 2 }}>
-      <FormControl fullWidth>
+    <Box sx={{ minWidth: 200, marginBottom: 2, height: "40px" }}>
+      <FormControl fullWidth size="small">
         <InputLabel id="sort-by-label">Sort By</InputLabel>
         <Select
           labelId="sort-by-label"
@@ -19,8 +19,11 @@ const SortByDropdown = ({ onSortChange }) => {
           value={sortOption}
           label="Sort By"
           onChange={handleSortChange}
+          defaultValue="rating"
         >
-          <MenuItem value="rating">Rating</MenuItem>
+          <MenuItem value="rating" defaultChecked>
+            Rating
+          </MenuItem>
           <MenuItem value="releaseDate">Release Date</MenuItem>
           <MenuItem value="duration">Duration</MenuItem>
         </Select>

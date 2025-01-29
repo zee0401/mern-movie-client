@@ -18,7 +18,7 @@ const SearchInput = styled(Box)`
   color: gray;
   justify-content: center;
   padding-right: 5px;
-  padding-top: 20px;
+  padding-top: 10px;
 
   &:hover {
     cursor: pointer;
