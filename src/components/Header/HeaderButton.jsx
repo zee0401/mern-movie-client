@@ -1,6 +1,6 @@
 import { Button, styled } from "@mui/material";
 import BasicModal from "../Login/LoginModal"; // Assuming this is your login modal
-import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const WrapperButton = styled(Button)`
@@ -17,7 +17,7 @@ const WrapperButton = styled(Button)`
 `;
 
 const HeaderButton = ({ search, adminLogin }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -27,12 +27,10 @@ const HeaderButton = ({ search, adminLogin }) => {
     <div>
       <WrapperButton>{search}</WrapperButton>
 
-      {/* Button text dynamically changes based on authentication status */}
       <WrapperButton onClick={handleOpen} color="inherit">
-        {isAuthenticated ? "View Dashboard" : "Login / Admin Login"}
+        {isAuthenticated ? "View Dashboard" : "Admin Login"}
       </WrapperButton>
 
-      {/* BasicModal is conditionally opened based on the state of 'open' */}
       {!isAuthenticated && (
         <BasicModal
           open={open}
