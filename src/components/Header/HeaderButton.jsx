@@ -18,7 +18,7 @@ const WrapperButton = styled(Button)`
   }
 `;
 
-const HeaderButton = ({ search, adminLogin }) => {
+const HeaderButton = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
