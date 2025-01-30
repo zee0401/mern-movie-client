@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthenticated } from "./redux/features/authSlice";
 import { axiosInstance } from "./utility/axiosInstance";
+import AddMovie from "./pages/admin/AddMovie";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/admin/all-movies" element={<AdminAllMoviesList />} />
+          <Route path="/admin/add-movie" element={<AddMovie />} />
         </Routes>
       </Layout>
     </BrowserRouter>

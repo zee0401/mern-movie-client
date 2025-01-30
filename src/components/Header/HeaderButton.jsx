@@ -5,18 +5,18 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router";
 import { useLocation } from "react-router-dom";
 
-const WrapperButton = styled(Button)`
-  background: white;
-  color: #ac137e;
-  margin: 5px;
-  border-radius: 5px;
-  transition: background 0.3s, color 0.3s;
+const WrapperButton = styled(Button)(({ theme }) => ({
+  background: "white",
+  color: theme.palette.text.blue,
+  margin: "5px",
+  borderRadius: "5px",
+  transition: "background 0.3s, color 0.3s",
 
-  &:hover {
-    background: #9c1657;
-    color: #f9f9f9;
-  }
-`;
+  "&:hover": {
+    background: theme.palette.secondary.main,
+    color: "#f9f9f9",
+  },
+}));
 
 const HeaderButton = () => {
   const [open, setOpen] = useState(false);
@@ -34,7 +34,14 @@ const HeaderButton = () => {
       {/* <WrapperButton>{search}</WrapperButton> */}
 
       {isAuthenticated && isAdminLocation && (
-        <WrapperButton>Add Movie</WrapperButton>
+        <WrapperButton>
+          <Link
+            to="/admin/add-movie"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            Add Movie
+          </Link>
+        </WrapperButton>
       )}
       {isAuthenticated && !isAdminLocation && (
         <WrapperButton>
