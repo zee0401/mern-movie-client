@@ -12,7 +12,9 @@ const SortByDropdown = ({ onSortChange }) => {
   return (
     <Box sx={{ minWidth: 200, marginBottom: 2, height: "40px" }}>
       <FormControl fullWidth size="small">
-        <InputLabel id="sort-by-label">Sort By</InputLabel>
+        <InputLabel id="sort-by-label" sx={{ color: "white" }}>
+          Sort By
+        </InputLabel>
         <Select
           labelId="sort-by-label"
           id="sort-by"
@@ -20,6 +22,7 @@ const SortByDropdown = ({ onSortChange }) => {
           label="Sort By"
           onChange={handleSortChange}
           defaultValue="rating"
+          sx={{ color: "white" }}
         >
           <MenuItem value="rating" defaultChecked>
             Rating

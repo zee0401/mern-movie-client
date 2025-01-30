@@ -3,27 +3,26 @@ import { InputBase, Box, styled } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
 
-const StyledBox = styled(Box)`
-  background: #0c0101;
-  width: 100%;
-  margin-left: 10px;
-  display: flex;
-  margin-bottom: 2%;
-  border: 1px solid #4c4c4c;
-  border-radius: 4px;
-  margin-right: 20px;
-`;
+const StyledBox = styled(Box)(({ theme }) => ({
+  width: "100%",
+  marginLeft: "10px",
+  display: "flex",
+  marginBottom: "2%",
+  border: "1px solid #4c4c4c",
+  borderRadius: "4px",
+  marginRight: "20px",
+}));
 
-const SearchInput = styled(Box)`
-  color: gray;
-  justify-content: center;
-  padding-right: 5px;
-  padding-top: 10px;
+const SearchInput = styled(Box)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  justifyContent: "center",
+  paddingRight: "5px",
+  paddingTop: "10px",
 
-  &:hover {
-    cursor: pointer;
-  }
-`;
+  "&:hover": {
+    cursor: "pointer",
+  },
+}));
 
 const SearchBox = ({ setSearchInput }) => {
   return (

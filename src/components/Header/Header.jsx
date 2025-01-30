@@ -5,15 +5,13 @@ import MovieFilterIcon from "@mui/icons-material/MovieFilter";
 import HeaderButton from "./HeaderButton";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
-import { useSelector } from "react-redux";
 
 export default function ButtonAppBar() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
-
   return (
     <Toolbar
       sx={{
-        backgroundColor: "#df07dc",
+        background:
+          "linear-gradient(168deg, rgba(20, 20, 23, 0) 3.66%, rgba(20, 20, 23, 0.60) 100%), radial-gradient(circle at top right, rgba(51, 118, 255, .25) 0%, rgba(0, 0, 0, 0) 30%), radial-gradient(circle at bottom left, rgba(189, 167, 227, .25) 0%, rgba(0, 0, 0, 0) 30%), #110C21;",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
