@@ -23,6 +23,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 import { convertedDate } from "../../utility/dateConvert";
 import { movieDurationFormat } from "../../utility/movieDurationFormat";
+import SingleMovie from "./SingleMovie";
 
 const InfoItem = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -31,16 +32,15 @@ const InfoItem = styled(Box)(({ theme }) => ({
 }));
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "auto",
+  height: "auto",
   bgcolor: "background.paper",
   borderRadius: "10px",
-  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-  p: 4,
-  textAlign: "center",
+  boxShadow: "0px 4px 10px rgba(0, 0, 0, 10.3)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  margin: "auto",
 };
 
 const btnStyle = {
@@ -142,8 +142,9 @@ const MoviesTableContainer = ({ movies }) => {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            style={style}
           >
-            <div style={style}>hello</div>
+            <SingleMovie />
           </Modal>
         </TableBody>
       </Table>
