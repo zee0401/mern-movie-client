@@ -22,7 +22,7 @@ import { movieDurationFormat } from "../../utility/movieDurationFormat";
 const InfoItem = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: "2px",
-  color: theme.palette.text.secondary,
+  color: theme.palette.text.gray,
 }));
 
 const MoviesTableContainer = ({ movies }) => {
@@ -56,7 +56,7 @@ const MoviesTableContainer = ({ movies }) => {
                 <Stack direction="row" spacing={3} alignItems="center">
                   <InfoItem>
                     <StarIcon sx={{ fontSize: 18, color: "#FFD700" }} />
-                    <Typography variant="subtitle2" color="text.secondary">
+                    <Typography variant="subtitle2" color="text.gray">
                       {movie.rating}
                     </Typography>
                   </InfoItem>

@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import ScheduleIcon from "@mui/icons-material/Schedule";
+import { convertedDate } from "../../utility/dateConvert";
+import { movieDurationFormat } from "../../utility/movieDurationFormat";
+import TodayIcon from "@mui/icons-material/Today";
 
 const MovieCard = ({ movie }) => {
   return (
@@ -27,10 +30,11 @@ const MovieCard = ({ movie }) => {
             sx={{ fontSize: "13px" }}
             component="div"
             nowarap
+            color="text.primary"
           >
             {movie.name}
           </Typography>
-          <Typography
+          {/* <Typography
             sx={{
               whiteSpace: "nowrap",
               color: "#6c757d",
@@ -42,22 +46,28 @@ const MovieCard = ({ movie }) => {
             component="div"
           >
             {movie.description}
-          </Typography>
+          </Typography> */}
           <Box display="flex" justifyContent="space-between">
             <Box display="flex">
-              <StarIcon fontSize="small" sx={{ color: "#ffe417" }} />
-              <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+              <StarIcon sx={{ color: "#ffe417", fontSize: "17px" }} />
+              <Typography variant="body2" color="text.gray" sx={{ ml: 0.1 }}>
                 {movie.rating}
               </Typography>
             </Box>
             <Box display="flex">
-              <ScheduleIcon fontSize="small" />
-              <Typography variant="body2" color="text.secondary">
-                {movie.duration}
+              <ScheduleIcon sx={{ color: "gray", fontSize: "17px" }} />
+              <Typography variant="body2" color="text.gray">
+                {movieDurationFormat(movie.duration)}
+              </Typography>
+            </Box>
+            <Box display="flex">
+              <TodayIcon sx={{ color: "gray", fontSize: "17px" }} />
+              <Typography variant="body2" color="text.gray">
+                {convertedDate(movie.releaseDate)}
               </Typography>
             </Box>
           </Box>
-          <Box display="flex">
+          <Box>
             <Typography variant="body2" color="text.secondary">
               {movie.year}
             </Typography>
