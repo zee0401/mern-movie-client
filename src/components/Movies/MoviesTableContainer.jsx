@@ -128,7 +128,7 @@ const MoviesTableContainer = ({ movies }) => {
                   </Stack>
                 </TableCell>
                 <TableCell>
-                  <Link to="/admin/update-movie">
+                  <Link to={`/admin/update-movie/${movie._id}`}>
                     <BorderColorRoundedIcon color="edit" />
                   </Link>
                 </TableCell>

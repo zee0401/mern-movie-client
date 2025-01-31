@@ -1,4 +1,4 @@
-import AddMovieForm from "../../components/Movies/AddMovieForm";
+import AddMovieForm from "../../components/Movies/MovieForm";
 
 const AddMovie = () => {
   return <AddMovieForm />;
