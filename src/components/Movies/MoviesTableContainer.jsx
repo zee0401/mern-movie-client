@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 import { useState } from "react";
-
+import { Link } from "react-router";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import StarIcon from "@mui/icons-material/Star";
@@ -128,9 +128,9 @@ const MoviesTableContainer = ({ movies }) => {
                   </Stack>
                 </TableCell>
                 <TableCell>
-                  <Button>
+                  <Link to="/admin/update-movie">
                     <BorderColorRoundedIcon color="edit" />
-                  </Button>
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <DeleteForeverRoundedIcon color="delete" />

@@ -34,6 +34,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/admin/all-movies" element={<AdminAllMoviesList />} />
           <Route path="/admin/add-movie" element={<AddMovie />} />
+          <Route path="/admin/update-movie" element={<AddMovie />} />
         </Routes>
       </Layout>
     </BrowserRouter>
