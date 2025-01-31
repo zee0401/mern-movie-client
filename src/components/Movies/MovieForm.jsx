@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { TextField, Button, Box, Typography, styled } from "@mui/material";
 
-const AddMovieForm = () => {
+import { convertedDate } from "../../utility/dateConvert";
+import { movieDurationFormat } from "../../utility/movieDurationFormat";
+
+const MovieForm = ({ moviebyId, id }) => {
+  const { name, description, duration, rating, releaseDate } = moviebyId || {};
+
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    duration: "",
-    rating: "",
-    year: "",
+    title: name || "",
+    description: description || "",
+    duration: (duration && movieDurationFormat(duration)) || "",
+    rating: rating || "",
+    year: (releaseDate && convertedDate(releaseDate)) || "",
   });
 
   const handleChange = (e) => {
@@ -20,7 +25,7 @@ const AddMovieForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Movie Data Submitted:", formData);
+    console.log("form", formData);
   };
 
   return (
@@ -37,7 +42,7 @@ const AddMovieForm = () => {
       }}
     >
       <Typography variant="h5" mb={3}>
-        Create a Movie
+        {moviebyId ? "Edit Movie" : "Add Movie"}
       </Typography>
 
       <TextField
@@ -68,7 +73,7 @@ const AddMovieForm = () => {
         name="duration"
         value={formData.duration}
         onChange={handleChange}
-        type="number"
+        type="string"
         required
         fullWidth
         margin="normal"
@@ -108,10 +113,10 @@ const AddMovieForm = () => {
         fullWidth
         sx={{ mt: 3 }}
       >
-        Submit
+        {moviebyId ? "Update Movie" : "Add Movie"}
       </Button>
     </Box>
   );
 };
 
-export default AddMovieForm;
+export default MovieForm;
