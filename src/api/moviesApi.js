@@ -5,3 +5,10 @@ export const getAllMovies = async () => {
   console.log(response.data, "response");
   return response.data;
 };
+
+export const singleMovie = async (id) => {
+  console.log("id", id);
+  const response = await axiosInstance.get(`/movies/${id}`);
+  console.log(response.data, "response");
+  return response.data;
+};
