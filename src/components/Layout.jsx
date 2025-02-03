@@ -34,6 +34,15 @@ const Layout = ({ children }) => {
     typography: {
       fontFamily: "Arial, sans-serif",
     },
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            "& label": { color: "gray" },
+          },
+        },
+      },
+    },
   });
 
   return (
@@ -49,7 +58,6 @@ const Layout = ({ children }) => {
         <AppBar position="static">
           <Header />
         </AppBar>
-        {/* Main content area */}
         <Container
           maxWidth="lg"
           sx={{

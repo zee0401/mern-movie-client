@@ -5,7 +5,8 @@ import { convertedDate } from "../../utility/dateConvert";
 import { movieDurationFormat } from "../../utility/movieDurationFormat";
 
 const MovieForm = ({ moviebyId, id }) => {
-  const { name, description, duration, rating, releaseDate } = moviebyId || {};
+  const { name, description, duration, rating, releaseDate, image } =
+    moviebyId || {};
 
   // Extract hours and minutes from duration if editing
   const formattedDuration = duration ? movieDurationFormat(duration) : "";
@@ -20,6 +21,7 @@ const MovieForm = ({ moviebyId, id }) => {
     minutes: initialMinutes, // Separate minutes input
     rating: rating || "",
     year: (releaseDate && convertedDate(releaseDate)) || "",
+    image: image || "",
   });
 
   const handleChange = (e) => {
@@ -33,7 +35,6 @@ const MovieForm = ({ moviebyId, id }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Combine hours and minutes into "Xh Ym" format
     const combinedDuration = `${formData.hours}h ${formData.minutes}m`;
 
     const submittedData = {
@@ -42,6 +43,7 @@ const MovieForm = ({ moviebyId, id }) => {
       rating,
       description,
       duration: combinedDuration,
+      image,
     };
 
     console.log("Submitted Movie Data:", submittedData);
@@ -86,61 +88,88 @@ const MovieForm = ({ moviebyId, id }) => {
         rows={3}
       />
 
-      {/* Duration Field (Hours + Minutes in the same row) */}
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs={12}>
-          <Typography variant="body2">Duration</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            label="Hours"
-            name="hours"
-            value={formData.hours}
-            onChange={handleChange}
-            type="number"
-            required
-            fullWidth
-            inputProps={{ min: 0 }}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            label="Minutes"
-            name="minutes"
-            value={formData.minutes}
-            onChange={handleChange}
-            type="number"
-            required
-            fullWidth
-            inputProps={{ min: 0, max: 59 }}
-          />
-        </Grid>
-      </Grid>
+      <Box container spacing={2} alignItems="center">
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            width: "100%",
+            flexDirection: "column",
+            border: "1px solid #484553",
+            marginTop: "2px",
+            padding: "3px",
+            color: "gray",
+          }}
+        >
+          <Typography variant="body2">Duration*</Typography>
+
+          <Grid
+            item
+            display={"flex"}
+            sx={{ paddingBottom: "12px", paddingX: "12px" }}
+            gap={2}
+          >
+            <TextField
+              label="Hours"
+              name="hours"
+              value={formData.hours}
+              onChange={handleChange}
+              type="number"
+              required
+              fullWidth
+              inputProps={{ min: 0 }}
+            />
+            <TextField
+              label="Minutes"
+              name="minutes"
+              value={formData.minutes}
+              onChange={handleChange}
+              type="number"
+              required
+              fullWidth
+              inputProps={{ min: 0, max: 59 }}
+            />
+          </Grid>
+        </Box>
+      </Box>
+      <Box container gap={2} display={"flex"} justifyContent={"flex-end"}>
+        <TextField
+          label="Rating"
+          name="rating"
+          value={formData.rating}
+          onChange={handleChange}
+          type="number"
+          required
+          fullWidth
+          margin="normal"
+          inputProps={{ min: 0, max: 10, step: 0.1 }}
+          helperText="Enter a rating between 0 and 10"
+        />
+
+        <TextField
+          label="Year"
+          name="year"
+          value={formData.year}
+          onChange={handleChange}
+          type="number"
+          required
+          fullWidth
+          margin="normal"
+          inputProps={{ min: 1888, max: new Date().getFullYear() }}
+          helperText="Enter a valid year"
+        />
+      </Box>
 
       <TextField
-        label="Rating"
-        name="rating"
-        value={formData.rating}
+        label="Image URL"
+        name="image"
+        value={formData.image}
         onChange={handleChange}
-        type="number"
+        type="text"
         required
         fullWidth
         margin="normal"
-        inputProps={{ min: 0, max: 10, step: 0.1 }}
-        helperText="Enter a rating between 0 and 10"
-      />
-
-      <TextField
-        label="Year"
-        name="year"
-        value={formData.year}
-        onChange={handleChange}
-        type="number"
-        required
-        fullWidth
-        margin="normal"
-        inputProps={{ min: 1888, max: new Date().getFullYear() }}
-        helperText="Enter a valid year"
+        helperText="Enter a valid image URL"
       />
 
       <Button
