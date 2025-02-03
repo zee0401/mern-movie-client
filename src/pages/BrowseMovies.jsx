@@ -9,12 +9,15 @@ import SortByDropdown from "../components/sort/SortBy";
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const params = searchParams.get("search");
+  const sortParams = searchParams.get("sortBy");
 
   const [searchTerm, setSearchTerm] = useState(params);
+  const [sortBy, setSortBy] = useState("rating");
 
   const onSearchClick = () => {
-    setSearchParams({ search: searchTerm });
+    setSearchParams({ search: searchTerm, sortBy: sortBy });
   };
 
   const {
@@ -22,9 +25,8 @@ const Search = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["movies", params],
-    queryFn: () => searchMovies(params),
-    enabled: !!params,
+    queryKey: ["movies", params, sortBy],
+    queryFn: () => searchMovies(params, sortParams),
   });
 
   if (isLoading) {
@@ -50,7 +52,12 @@ const Search = () => {
           onSearchChange={setSearchTerm}
           onSearchClick={onSearchClick}
         />
-        <SortByDropdown style={{ width: "100%" }} />
+        <SortByDropdown
+          style={{ width: "100%" }}
+          sortBy={sortParams}
+          setSortBy={setSortBy}
+          searchTerm={searchTerm}
+        />
       </Stack>
       {movies.length === 0 ? (
         <div>No movies found</div>

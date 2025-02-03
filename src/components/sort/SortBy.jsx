@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { useNavigate } from "react-router";
 
-const SortByDropdown = ({ onSortChange }) => {
-  const [sortOption, setSortOption] = useState("rating");
+const SortByDropdown = ({ sortBy, setSortBy, searchTerm = "" }) => {
+  const navigate = useNavigate();
 
   const handleSortChange = (event) => {
-    setSortOption(event.target.value);
-    onSortChange(event.target.value);
+    const newSortBy = event.target.value;
+    setSortBy(newSortBy);
+    console.log("newSortBy", newSortBy);
+    setSortBy(newSortBy);
+    navigate(`/search-movies?search=${searchTerm}&sortBy=${newSortBy}`);
   };
 
   return (
     <Box sx={{ minWidth: 200, marginBottom: 2, height: "40px" }}>
       <FormControl fullWidth size="small">
-        <InputLabel id="sort-by-label" sx={{ color: "white" }}>
-          Sort By
-        </InputLabel>
+        <InputLabel id="sort-by-label">Sort By</InputLabel>
         <Select
           labelId="sort-by-label"
           id="sort-by"
-          value={sortOption}
+          value={sortBy}
           label="Sort By"
           onChange={handleSortChange}
-          defaultValue="rating"
           sx={{ color: "white" }}
         >
           <MenuItem value="rating" defaultChecked>
