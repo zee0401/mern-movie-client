@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Typography, styled } from "@mui/material";
+import { TextField, Button, Box, Typography, Grid } from "@mui/material";
 
 import { convertedDate } from "../../utility/dateConvert";
 import { movieDurationFormat } from "../../utility/movieDurationFormat";
@@ -7,10 +7,17 @@ import { movieDurationFormat } from "../../utility/movieDurationFormat";
 const MovieForm = ({ moviebyId, id }) => {
   const { name, description, duration, rating, releaseDate } = moviebyId || {};
 
+  // Extract hours and minutes from duration if editing
+  const formattedDuration = duration ? movieDurationFormat(duration) : "";
+  const durationMatch = formattedDuration.match(/(\d+)h (\d+)m/);
+  const initialHours = durationMatch ? parseInt(durationMatch[1]) : "";
+  const initialMinutes = durationMatch ? parseInt(durationMatch[2]) : "";
+
   const [formData, setFormData] = useState({
     title: name || "",
     description: description || "",
-    duration: (duration && movieDurationFormat(duration)) || "",
+    hours: initialHours, // Separate hours input
+    minutes: initialMinutes, // Separate minutes input
     rating: rating || "",
     year: (releaseDate && convertedDate(releaseDate)) || "",
   });
@@ -25,7 +32,19 @@ const MovieForm = ({ moviebyId, id }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("form", formData);
+
+    // Combine hours and minutes into "Xh Ym" format
+    const combinedDuration = `${formData.hours}h ${formData.minutes}m`;
+
+    const submittedData = {
+      name,
+      releaseDate,
+      rating,
+      description,
+      duration: combinedDuration,
+    };
+
+    console.log("Submitted Movie Data:", submittedData);
   };
 
   return (
@@ -53,7 +72,6 @@ const MovieForm = ({ moviebyId, id }) => {
         required
         fullWidth
         margin="normal"
-        color="primary"
       />
 
       <TextField
@@ -68,17 +86,36 @@ const MovieForm = ({ moviebyId, id }) => {
         rows={3}
       />
 
-      <TextField
-        label="Duration (in minutes)"
-        name="duration"
-        value={formData.duration}
-        onChange={handleChange}
-        type="string"
-        required
-        fullWidth
-        margin="normal"
-        inputProps={{ min: 1 }}
-      />
+      {/* Duration Field (Hours + Minutes in the same row) */}
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={12}>
+          <Typography variant="body2">Duration</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            label="Hours"
+            name="hours"
+            value={formData.hours}
+            onChange={handleChange}
+            type="number"
+            required
+            fullWidth
+            inputProps={{ min: 0 }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            label="Minutes"
+            name="minutes"
+            value={formData.minutes}
+            onChange={handleChange}
+            type="number"
+            required
+            fullWidth
+            inputProps={{ min: 0, max: 59 }}
+          />
+        </Grid>
+      </Grid>
 
       <TextField
         label="Rating"
