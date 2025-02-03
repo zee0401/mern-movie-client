@@ -2,6 +2,7 @@ import React from "react";
 import { InputBase, Box, styled } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -24,17 +25,18 @@ const SearchInput = styled(Box)(({ theme }) => ({
   },
 }));
 
-const SearchBox = ({ setSearchInput }) => {
+const SearchBox = ({ searchTerm, onSearchChange, onSearchClick }) => {
   return (
     <StyledBox>
       <InputBase
         placeholder="Seach by movies name or description..."
         style={{ width: "100%", marginLeft: "20px" }}
-        // onChange={(e) => {
-        //   setSearchInput(e.target.value);
-        // }}
+        onChange={(e) => {
+          onSearchChange(e.target.value);
+        }}
+        value={searchTerm}
       />
-      <SearchInput>
+      <SearchInput onClick={onSearchClick}>
         <SearchIcon />
       </SearchInput>
     </StyledBox>
