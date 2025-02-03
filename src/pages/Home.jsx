@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("rating");
+
   const navigate = useNavigate();
 
-  const searchClick = () => {
+  const handleSearchClick = () => {
     navigate(`/search-movies?search=${searchTerm}`);
   };
 
@@ -37,9 +39,13 @@ const Home = () => {
           style={{ width: "100%" }}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
-          onSearchClick={searchClick}
+          onSearchClick={handleSearchClick}
         />
-        <SortByDropdown style={{ width: "100%" }} />
+        <SortByDropdown
+          style={{ width: "100%" }}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
       </Stack>
 
       <Movies
