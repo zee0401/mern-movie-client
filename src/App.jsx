@@ -1,13 +1,17 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+
 import "./App.css";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthenticated } from "./redux/features/authSlice";
+
+import { axiosInstance } from "./utility/axiosInstance";
+
 import Home from "./pages/Home";
 import Search from "./pages/BrowseMovies";
 import AdminAllMoviesList from "./pages/admin/AdminAllMoviesList";
-import Layout from "./components/Layout";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthenticated } from "./redux/features/authSlice";
-import { axiosInstance } from "./utility/axiosInstance";
 import AddMovie from "./pages/admin/AddMovie";
 import UpdateMovie from "./pages/admin/UpdateMovie";
 
