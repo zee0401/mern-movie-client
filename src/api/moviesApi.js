@@ -13,7 +13,9 @@ export const singleMovie = async (id) => {
   return response.data;
 };
 
-export const searchMovies = async (searchTerm, sortBy) => {
+export const searchMovies = async (searchTerm = "", sortBy = "") => {
+  sortBy = sortBy || "rating";
+  console.log("searchTerm", sortBy);
   const response = await axiosInstance.get(
     `/movies/search?searchTerm=${searchTerm}&sortBy=${sortBy}`
   );
