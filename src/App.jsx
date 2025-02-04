@@ -10,7 +10,7 @@ import { setAuthenticated } from "./redux/features/authSlice";
 import { axiosInstance } from "./utility/axiosInstance";
 
 import Home from "./pages/Home";
-import Search from "./pages/BrowseMovies";
+import BrowseMovies from "./pages/BrowseMovies";
 import AdminAllMoviesList from "./pages/admin/AdminAllMoviesList";
 import AddMovie from "./pages/admin/AddMovie";
 import UpdateMovie from "./pages/admin/UpdateMovie";
@@ -35,7 +35,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search-movies" element={<Search />} />
+          <Route path="/search-movies" element={<BrowseMovies />} />
           <Route path="/admin/all-movies" element={<AdminAllMoviesList />} />
           <Route path="/admin/add-movie" element={<AddMovie />} />
           <Route path="/admin/update-movie/:id" element={<UpdateMovie />} />
