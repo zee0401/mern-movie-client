@@ -31,7 +31,14 @@ const HeaderButton = () => {
 
   return (
     <div>
-      {/* <WrapperButton>{search}</WrapperButton> */}
+      <WrapperButton>
+        <Link
+          to="/search-movies"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          Browse Movies
+        </Link>
+      </WrapperButton>
 
       {isAuthenticated && isAdminLocation && (
         <WrapperButton>
