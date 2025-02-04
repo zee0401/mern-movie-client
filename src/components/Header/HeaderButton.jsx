@@ -29,6 +29,7 @@ const HeaderButton = () => {
 
   const { isAuthenticated } = useSelector((state) => state.auth);
 
+  console.log(isAuthenticated, "isAuthenticated");
   return (
     <div>
       <WrapperButton>

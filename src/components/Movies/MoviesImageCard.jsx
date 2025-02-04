@@ -11,6 +11,7 @@ const MoviesImageCard = ({ movie }) => {
           height="300"
           image={movie.image}
           title={movie.name}
+          loading="lazy"
         />
       </CardActionArea>
     </Card>
