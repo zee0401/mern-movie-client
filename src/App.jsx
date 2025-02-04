@@ -14,6 +14,7 @@ import BrowseMovies from "./pages/BrowseMovies";
 import AdminAllMoviesList from "./pages/admin/AdminAllMoviesList";
 import AddMovie from "./pages/admin/AddMovie";
 import UpdateMovie from "./pages/admin/UpdateMovie";
+import ProtectedRoute from "./utility/protectRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,9 +37,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search-movies" element={<BrowseMovies />} />
-          <Route path="/admin/all-movies" element={<AdminAllMoviesList />} />
-          <Route path="/admin/add-movie" element={<AddMovie />} />
-          <Route path="/admin/update-movie/:id" element={<UpdateMovie />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin/all-movies" element={<AdminAllMoviesList />} />
+            <Route path="/admin/add-movie" element={<AddMovie />} />
+            <Route path="/admin/update-movie/:id" element={<UpdateMovie />} />
+          </Route>
         </Routes>
       </Layout>
     </BrowserRouter>
