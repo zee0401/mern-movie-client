@@ -4,21 +4,28 @@ import { TextField, Button, Box, Typography, Grid } from "@mui/material";
 import { convertedDate } from "../../utility/dateConvert";
 import { movieDurationFormat } from "../../utility/movieDurationFormat";
 
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { addMovie, editMovie } from "../../api/moviesApi";
+import { useNavigate } from "react-router";
+
 const MovieForm = ({ moviebyId, id }) => {
   const { name, description, duration, rating, releaseDate, image } =
     moviebyId || {};
 
-  // Extract hours and minutes from duration if editing
+  const queryClient = useQueryClient();
+
   const formattedDuration = duration ? movieDurationFormat(duration) : "";
   const durationMatch = formattedDuration.match(/(\d+)h (\d+)m/);
   const initialHours = durationMatch ? parseInt(durationMatch[1]) : "";
   const initialMinutes = durationMatch ? parseInt(durationMatch[2]) : "";
 
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    title: name || "",
+    name: name || "",
     description: description || "",
-    hours: initialHours, // Separate hours input
-    minutes: initialMinutes, // Separate minutes input
+    hours: initialHours,
+    minutes: initialMinutes,
     rating: rating || "",
     year: (releaseDate && convertedDate(releaseDate)) || "",
     image: image || "",
@@ -32,21 +39,41 @@ const MovieForm = ({ moviebyId, id }) => {
     }));
   };
 
+  const mutation = useMutation({
+    mutationFn: (formData) => {
+      if (id) {
+        return editMovie(formData, id);
+      } else {
+        return addMovie(formData);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["movies"] });
+      navigate("/admin/all-movies");
+    },
+    onError: (error) => {
+      console.error("Error adding movie:", error);
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const combinedDuration = `${formData.hours}h ${formData.minutes}m`;
+    const combinedDuration = `PT${formData.hours}H${formData.minutes}M`;
+
+    const { name, year, rating, description, image } = formData;
 
     const submittedData = {
       name,
-      releaseDate,
+      releaseDate: year,
       rating,
       description,
       duration: combinedDuration,
       image,
     };
 
-    console.log("Submitted Movie Data:", submittedData);
+    mutation.mutate(submittedData);
+    console.log(submittedData, "submot");
   };
 
   return (
@@ -68,8 +95,8 @@ const MovieForm = ({ moviebyId, id }) => {
 
       <TextField
         label="Title"
-        name="title"
-        value={formData.title}
+        name="name"
+        value={formData.name}
         onChange={handleChange}
         required
         fullWidth
