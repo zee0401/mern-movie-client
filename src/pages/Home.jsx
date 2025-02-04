@@ -14,7 +14,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleSearchClick = () => {
-    navigate(`/search-movies?search=${searchTerm}`);
+    navigate(`/search-movies?search=${searchTerm}&sortBy=${sortBy}`);
   };
 
   const {
@@ -22,13 +22,13 @@ const Home = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["movies"],
+    queryKey: ["movies", sortBy],
     queryFn: getAllMovies,
   });
 
   return (
     <div>
-      <Stack
+      {/* <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={2}
         alignItems="center"
@@ -46,7 +46,7 @@ const Home = () => {
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
-      </Stack>
+      </Stack> */}
 
       <Movies
         movies={movies}
