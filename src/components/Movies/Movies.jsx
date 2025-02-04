@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import Grid2 from "@mui/material/Grid2";
 import MovieCard from "./MovieCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/material";
+import MoviesImageCard from "./MoviesImageCard";
 
 const Movies = ({ movies, isLoading, error }) => {
+  const location = useLocation(); // Get the current route
   const [page, setPage] = useState(1);
   const moviesPerPage = 15;
 
   const totalPages = Math.ceil(movies.length / moviesPerPage);
 
-  // Reset page if the movies list changes and current page is out of bounds
   useEffect(() => {
     if (page > totalPages) {
       setPage(1);
@@ -34,7 +36,11 @@ const Movies = ({ movies, isLoading, error }) => {
       <Grid2 container sx={{ justifyContent: "center" }} spacing={2}>
         {currentMovies.map((movie, index) => (
           <Grid2 xs={24} sm={4} md={3} lg={2} key={index}>
-            <MovieCard movie={movie} />
+            {location.pathname === "/" ? (
+              <MoviesImageCard movie={movie} />
+            ) : (
+              <MovieCard movie={movie} />
+            )}
           </Grid2>
         ))}
       </Grid2>

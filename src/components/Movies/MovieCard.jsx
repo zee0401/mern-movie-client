@@ -14,14 +14,17 @@ import { movieDurationFormat } from "../../utility/movieDurationFormat";
 import TodayIcon from "@mui/icons-material/Today";
 
 const MovieCard = ({ movie }) => {
+  const fallbackImage =
+    "https://marketplace.canva.com/EAFVCFkAg3w/1/0/1131w/canva-AOBSIAmLWOs.jpg";
   return (
-    <Card sx={{ maxWidth: 200, borderRadius: 3 }}>
+    <Card sx={{ maxWidth: 200, borderRadius: 3, borderBottom: 2 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           alt={movie.name}
           height="300"
-          image={movie.image}
+          image={movie.image || fallbackImage}
+          onError={(e) => (e.target.src = fallbackImage)}
           title={movie.name}
         />
         <CardContent>
