@@ -24,6 +24,9 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { convertedDate } from "../../utility/dateConvert";
 import { movieDurationFormat } from "../../utility/movieDurationFormat";
 import SingleMovie from "./SingleMovie";
+import { deleteMovie } from "../../api/moviesApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { use } from "react";
 
 const InfoItem = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -62,6 +65,18 @@ const MoviesTableContainer = ({ movies }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (id) => deleteMovie(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["movies"] });
+    },
+    onError: (error) => {
+      console.error("Error deleting movie:", error);
+    },
+  });
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -69,6 +84,11 @@ const MoviesTableContainer = ({ movies }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleDelete = (id) => {
+    console.log(id, "moviesid");
+    mutation.mutate(id);
   };
 
   return (
@@ -133,7 +153,10 @@ const MoviesTableContainer = ({ movies }) => {
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <DeleteForeverRoundedIcon color="delete" />
+                  <DeleteForeverRoundedIcon
+                    onClick={() => handleDelete(movie._id)}
+                    color="delete"
+                  />
                 </TableCell>
               </TableRow>
             ))}
