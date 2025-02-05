@@ -87,7 +87,6 @@ const MoviesTableContainer = ({ movies }) => {
   };
 
   const handleDelete = (id) => {
-    console.log(id, "moviesid");
     mutation.mutate(id);
   };
 

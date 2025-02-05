@@ -6,8 +6,6 @@ const Search = () => {
 
   const search = searchParams.get("search");
 
-  console.log(search);
-
   return <div>Search the movie</div>;
 };
 

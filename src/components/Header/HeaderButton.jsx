@@ -1,9 +1,11 @@
 import { Button, styled } from "@mui/material";
 import BasicModal from "../Login/LoginModal"; // Assuming this is your login modal
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
+import { axiosInstance } from "../../utility/axiosInstance";
+import { logout } from "../../redux/features/authSlice";
 
 const WrapperButton = styled(Button)(({ theme }) => ({
   background: "white",
@@ -29,7 +31,21 @@ const HeaderButton = () => {
 
   const { isAuthenticated } = useSelector((state) => state.auth);
 
-  console.log(isAuthenticated, "isAuthenticated");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axiosInstance.get("/admin/logout");
+      if (response.status === 200) {
+        dispatch(logout());
+      }
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   return (
     <div>
       <WrapperButton>
@@ -68,7 +84,7 @@ const HeaderButton = () => {
       )}
 
       {isAuthenticated && (
-        <WrapperButton onClick={handleOpen} color="inherit">
+        <WrapperButton onClick={handleLogout} color="inherit">
           Logout
         </WrapperButton>
       )}

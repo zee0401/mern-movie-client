@@ -1,12 +1,8 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-
-import "./App.css";
-
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthenticated } from "./redux/features/authSlice";
-
+import { setAuthenticated, setChecking } from "./redux/features/authSlice";
 import { axiosInstance } from "./utility/axiosInstance";
 
 import Home from "./pages/Home";
@@ -18,18 +14,29 @@ import ProtectedRoute from "./utility/protectRoute";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const isChecking = useSelector((state) => state.auth.isChecking);
 
   useEffect(() => {
     const verifyAdmin = async () => {
-      const response = await axiosInstance.get("/admin/verify-user");
-
-      if (response.status === 200) {
-        dispatch(setAuthenticated(true));
+      dispatch(setChecking(true));
+      try {
+        const response = await axiosInstance.get("/admin/verify-user");
+        if (response.status === 200) {
+          dispatch(setAuthenticated(true));
+        }
+      } catch (error) {
+        dispatch(setAuthenticated(false));
+      } finally {
+        dispatch(setChecking(false));
       }
     };
     verifyAdmin();
-  }, []);
+  }, [dispatch]);
+
+  if (isChecking) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <BrowserRouter>

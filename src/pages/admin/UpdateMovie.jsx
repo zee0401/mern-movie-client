@@ -19,7 +19,6 @@ const UpdateMovie = () => {
   if (isError || !data?.movie) {
     return <div>Error: Movie not found or invalid ID</div>;
   }
-  console.log(data, "data");
   return (
     <div>
       <MovieForm moviebyId={data?.movie} id={id} />
