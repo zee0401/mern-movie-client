@@ -44,3 +44,13 @@ export const editMovie = async (movie, id) => {
     throw error;
   }
 };
+
+export const deleteMovie = async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/movies/delete-movie/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting movie:", error);
+    throw error;
+  }
+};
