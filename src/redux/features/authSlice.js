@@ -6,24 +6,28 @@ const authSlice = createSlice({
   initialState: {
     adminDetails: null,
     isAuthenticated: !!Cookies.get("jwt"),
+    isChecking: true,
   },
   reducers: {
     login: (state, action) => {
+      console.log(action.payload, "actionpayload");
       state.adminDetails = action.payload.adminDetails;
       state.isAuthenticated = true;
-      Cookies.set("jwt", action.payload.token);
     },
     logout: (state) => {
       state.adminDetails = null;
       state.isAuthenticated = false;
-      Cookies.remove("jwt");
     },
     setAuthenticated: (state, action) => {
       state.isAuthenticated = action.payload;
     },
+    setChecking: (state, action) => {
+      state.isChecking = action.payload;
+    },
   },
 });
 
-export const { login, logout, setAuthenticated } = authSlice.actions;
+export const { login, logout, setAuthenticated, setChecking } =
+  authSlice.actions;
 
 export default authSlice.reducer;
