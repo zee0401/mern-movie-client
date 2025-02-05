@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TextField, Button, Box, Typography, Grid } from "@mui/material";
 
 import { convertedDate } from "../../utility/dateConvert";
@@ -7,8 +7,15 @@ import { movieDurationFormat } from "../../utility/movieDurationFormat";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { addMovie, editMovie } from "../../api/moviesApi";
 import { useNavigate } from "react-router";
+import ToastNotification from "../ToastNotification";
 
 const MovieForm = ({ moviebyId, id }) => {
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
   const { name, description, duration, rating, releaseDate, image } =
     moviebyId || {};
 
@@ -48,11 +55,23 @@ const MovieForm = ({ moviebyId, id }) => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["movies"] });
+      queryClient.invalidateQueries({ queryKey: ["movies", "single-movie"] });
+
       navigate("/admin/all-movies");
+
+      setToast({
+        open: true,
+        message: id ? "Movie updated successfully" : "Movie added successfully",
+        severity: "success",
+      });
     },
     onError: (error) => {
       console.error("Error adding movie:", error);
+      setToast({
+        open: true,
+        message: "Error adding movie",
+        severity: "error",
+      });
     },
   });
 
@@ -73,7 +92,6 @@ const MovieForm = ({ moviebyId, id }) => {
     };
 
     mutation.mutate(submittedData);
-    console.log(submittedData, "submot");
   };
 
   return (
@@ -208,6 +226,12 @@ const MovieForm = ({ moviebyId, id }) => {
       >
         {moviebyId ? "Update Movie" : "Add Movie"}
       </Button>
+      <ToastNotification
+        open={toast.open}
+        message={toast.message}
+        severity={toast.severity}
+        onClose={() => setToast({ ...toast, open: false })}
+      />
     </Box>
   );
 };
