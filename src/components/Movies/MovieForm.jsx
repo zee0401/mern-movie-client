@@ -56,6 +56,7 @@ const MovieForm = ({ moviebyId, id }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["movies", "single-movie"] });
+      queryClient.refetchQueries({ queryKey: ["single-movie", id] });
 
       navigate("/admin/all-movies");
 

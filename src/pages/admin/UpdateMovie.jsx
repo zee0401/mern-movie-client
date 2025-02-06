@@ -7,7 +7,7 @@ const UpdateMovie = () => {
   const { id } = useParams();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [id],
+    queryKey: ["single-movie", id],
     queryFn: () => singleMovie(id),
     enabled: !!id,
   });

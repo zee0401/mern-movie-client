@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, Typography, Container, Stack } from "@mui/material";
+import { movieDurationFormat } from "../../utility/movieDurationFormat";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const modalStyle = {
   display: "flex",
@@ -11,6 +13,7 @@ const modalStyle = {
   boxShadow: 24,
   p: 4,
   gap: 4,
+  position: "relative",
 };
 
 const imageStyle = {
@@ -27,35 +30,45 @@ const contentStyle = {
   gap: 2,
 };
 
-const fakeMovie = {
-  name: "Inception",
-  description: "A mind-bending thriller where dreams can be manipulated.",
-  image: "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SY679_.jpg",
-  rating: "8.8",
-  releaseDate: "2010-07-16",
-  duration: "148",
+const closeIconStyle = {
+  position: "absolute",
+  top: 10,
+  right: 10,
+  cursor: "pointer",
+  border: "1px solid #f6f5f5",
+  borderRadius: "50%",
+  width: "30px",
+  height: "30px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 };
 
-const SingleMovieModal = () => {
+const SingleMovieModal = ({ movie, onClose }) => {
   return (
     <Container maxWidth="md" sx={modalStyle}>
-      <img src={fakeMovie.image} alt={fakeMovie.name} style={imageStyle} />
+      <Box sx={closeIconStyle}>
+        <ClearIcon onClick={onClose} />
+      </Box>
+      <img src={movie.image} alt={movie.name} style={imageStyle} />
       <Box sx={contentStyle}>
         <Typography variant="h4" fontWeight="bold" gutterBottom>
-          {fakeMovie.name}
+          {movie.name}
         </Typography>
-        <Typography variant="body1" color="textSecondary" paragraph>
-          {fakeMovie.description}
+        <Typography variant="body1" color="gray" paragraph>
+          {movie.description}
         </Typography>
         <Stack spacing={1}>
           <Typography variant="subtitle1">
-            <strong>Rating:</strong> {fakeMovie.rating}
+            <strong style={{ color: "#FF9800" }}>Rating:</strong> {movie.rating}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Release Date:</strong> {fakeMovie.releaseDate}
+            <strong style={{ color: "#FF9800" }}>Release Date:</strong>{" "}
+            {movie.releaseDate}
           </Typography>
           <Typography variant="subtitle1">
-            <strong>Duration:</strong> {fakeMovie.duration} minutes
+            <strong style={{ color: "#FF9800" }}>Duration:</strong>{" "}
+            {movieDurationFormat(movie.duration)}{" "}
           </Typography>
         </Stack>
       </Box>
